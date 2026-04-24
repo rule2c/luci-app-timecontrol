@@ -34,6 +34,3 @@ define Package/$(PKG_NAME)/conffiles
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
-
-# call BuildPackage - OpenWrt buildroot signature
-
