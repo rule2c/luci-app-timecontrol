@@ -6,7 +6,6 @@
 'use strict';
 'require view';
 'require fs';
-'require ui';
 'require uci';
 'require form';
 'require poll';
@@ -82,38 +81,6 @@ function getHostList() {
         });
 }
 
-var cbiRichListValue = form.ListValue.extend({
-    renderWidget: function(section_id, option_index, cfgvalue) {
-        var choices = this.transformChoices();
-        var widget = new ui.Dropdown((cfgvalue != null) ? cfgvalue : this.default, choices, {
-            id: this.cbid(section_id),
-            sort: this.keylist,
-            optional: true,
-            select_placeholder: this.select_placeholder || this.placeholder,
-            custom_placeholder: this.custom_placeholder || this.placeholder,
-            validate: L.bind(this.validate, this, section_id),
-            disabled: (this.readonly != null) ? this.readonly : this.map.readonly
-        });
-
-        return widget.render();
-    },
-
-    value: function(value, title, description) {
-        if (description) {
-            form.ListValue.prototype.value.call(this, value, E([], [
-                E('span', { 'class': 'hide-open' }, [title]),
-                E('div', { 'class': 'hide-close', 'style': 'min-width:25vw' }, [
-                    E('strong', [title]),
-                    E('br'),
-                    E('span', { 'style': 'white-space:normal' }, description)
-                ])
-            ]));
-        } else {
-            form.ListValue.prototype.value.call(this, value, title);
-        }
-    }
-});
-
 return view.extend({
     load: function() {
         return Promise.all([
@@ -184,14 +151,14 @@ return view.extend({
         s.anonymous = true;
         s.addremove = false;
 
-        o = s.option(cbiRichListValue, 'list_type', _('Control Mode'),
+        o = s.option(form.ListValue, 'list_type', _('Control Mode'),
             _('blacklist: Block the networking of the target address, whitelist: Only allow networking for the target address and block all other addresses.'));
         o.rmempty = false;
         o.value('blacklist', _('Blacklist'));
         // o.value('whitelist', _('Whitelist'));
         o.default = 'blacklist';
 
-        o = s.option(cbiRichListValue, 'chain', _('Control Intensity'),
+        o = s.option(form.ListValue, 'chain', _('Control Intensity'),
             _('Pay attention to strong control: machines under control will not be able to connect to the software router backend!'));
         o.value('forward', _('Ordinary forward control'));
         o.value('input', _('Strong input control'));
@@ -248,7 +215,7 @@ return view.extend({
         }
 
         // 时间控制方式选择
-        o = s.option(cbiRichListValue, 'time_mode', _('Time Control Mode'));
+        o = s.option(form.ListValue, 'time_mode', _('Time Control Mode'));
         o.value('period', _('Time Period Control (allow in period)'));
         o.value('duration', _('Allow Duration Control (allow limited time)'));
         o.value('combined', _('Combined Control (allow in period + limit duration)'));
@@ -278,7 +245,7 @@ return view.extend({
         o.description = _('设备上线后允许上网的分钟数，超过后将被禁止上网');
 
         // 重置周期
-        o = s.option(cbiRichListValue, 'reset_cycle', _('Reset Cycle'));
+        o = s.option(form.ListValue, 'reset_cycle', _('Reset Cycle'));
         o.value('daily', _('Daily Reset'));
         o.value('weekly', _('Weekly Reset'));
         o.value('monthly', _('Monthly Reset'));
