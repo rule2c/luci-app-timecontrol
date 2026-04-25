@@ -272,6 +272,8 @@ stop_firewall() {
 
 # 添加设备到防火墙
 add_device() {
+    check_firewall_tool || return 1
+
     local id="$1"
     local target=$(config_t_get device mac "$id")
     [ -z "$target" ] && {
@@ -381,6 +383,8 @@ verify_firewall_rule() {
 
 # 从防火墙移除设备
 del_device() {
+    check_firewall_tool || return 1
+
     local id="$1"
     local target=$(config_t_get device mac "$id")
     [ -z "$target" ] && {
@@ -431,6 +435,8 @@ del_device() {
 
 # 显示防火墙状态
 show_firewall_status() {
+    check_firewall_tool >/dev/null 2>&1 || true
+
     echo ""
     echo "防火墙状态:"
     echo "控制模式: $list_type"
