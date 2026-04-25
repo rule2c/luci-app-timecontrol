@@ -1,20 +1,25 @@
 {
-   "luci-app-timecontrol": {
-	"description": "Grant UCI Internet time control for luci-app-timecontrol",
-	"read": {
-
-            "ubus": {
-
-                        "file": ["exec", "list", "stat", "read"],
-                        "uci": [ "*" ],
-                        "timecontrol": ["*"]
-            }
-	},
-	"write": {
-            "ubus": {
-                "timecontrol": ["*"],
-                "file": ["write"],
-                "uci": ["*"]
+  "luci-app-timecontrol": {
+    "description": "Grant access for luci-app-timecontrol",
+    "read": {
+      "ubus": {
+        "file": [ "read", "stat", "exec" ],
+        "uci": [ "get", "show" ]
+      },
+      "uci": [ "timecontrol" ],
+      "file": {
+        "/var/log/timecontrol.log": [ "read" ]
+      }
+    },
+    "write": {
+      "ubus": {
+        "file": [ "exec" ],
+        "uci": [ "add", "apply", "confirm", "delete", "order", "rename", "set" ]
+      },
+      "uci": [ "timecontrol" ],
+      "file": {
+        "/var/log/timecontrol.log": [ "write" ],
+        "/usr/libexec/timecontrol-call": [ "exec" ]
       }
     }
   }
