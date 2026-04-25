@@ -254,28 +254,6 @@ return view.extend({
         o.value('combined', _('Combined Control (allow in period + limit duration)'));
         o.default = 'period';
         o.rmempty = false;
-        o.onchange = function(ev, mode) {
-            var row = this.map.findElement('id', this.cbid(this.section_id));
-            if (row) {
-                // 显示/隐藏相关字段
-                var startTime = row.querySelector('[data-field="timestart"]');
-                var endTime = row.querySelector('[data-field="timeend"]');
-                var duration = row.querySelector('[data-field="duration"]');
-                var useDuration = row.querySelector('[data-field="use_duration"]');
-                var resetCycle = row.querySelector('[data-field="reset_cycle"]');
-                
-                if (startTime) startTime.parentElement.style.display = 
-                    (mode === 'period' || mode === 'combined') ? '' : 'none';
-                if (endTime) endTime.parentElement.style.display = 
-                    (mode === 'period' || mode === 'combined') ? '' : 'none';
-                if (duration) duration.parentElement.style.display = 
-                    (mode === 'duration' || mode === 'combined') ? '' : 'none';
-                if (useDuration) useDuration.parentElement.style.display = 
-                    (mode === 'combined') ? '' : 'none';
-                if (resetCycle) resetCycle.parentElement.style.display = 
-                    (mode === 'duration' || mode === 'combined') ? '' : 'none';
-            }
-        };
 
         // 时间段控制字段
         o = s.option(form.Value, 'timestart', _('Allow Start Time'));

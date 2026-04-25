@@ -1,5 +1,5 @@
 {
-  "admin/control/timecontrol": {
+  "admin/services/timecontrol": {
     "title": "Time Control",
     "order": 10,
     "action": {
@@ -11,7 +11,7 @@
     },
     "recurse": true
   },
-  "admin/control/timecontrol/basic": {
+  "admin/services/timecontrol/basic": {
 		"title": "Time Control",
 		"order": 10,
 		"action": {
@@ -20,7 +20,7 @@
     },
     "acl": [ "read" ]
   },
-  "admin/control/timecontrol/log": {
+  "admin/services/timecontrol/log": {
     "title": "Log",
     "order": 40,
     "action": {
