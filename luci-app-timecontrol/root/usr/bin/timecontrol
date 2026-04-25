@@ -6,7 +6,7 @@
 crrun=$1
 crid=$2
 NAME=timecontrol
-DEBUG=1  # 开启调试
+DEBUG=0  # 开启调试
 
 config_t_get() {
     local index=${3:-0}

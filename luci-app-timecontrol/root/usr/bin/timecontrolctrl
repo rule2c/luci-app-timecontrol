@@ -5,7 +5,7 @@
 
 NAME=timecontrol
 LOG_FILE="/var/log/timecontrol.log"
-DEBUG=1
+DEBUG=0
 
 # 时长数据库目录
 DURATION_DIR="/var/lib/timecontrol"
@@ -400,7 +400,7 @@ allow_target() {
         fi
     done
 
-    [ "$changed" -eq 1 ] && info "允许上网: $target"
+    [ "$changed" -eq 1 ] && info "允许${target}上网"
 }
 
 block_target() {
@@ -420,7 +420,7 @@ block_target() {
     if ! grep -q "!$id!" "$IDLIST" 2>/dev/null; then
         echo "!$id!" >> "$IDLIST"
     fi
-    info "阻止上网: $target"
+    info "阻止${target}上网"
     record_connection_time "$target" "disconnect"
 }
 
