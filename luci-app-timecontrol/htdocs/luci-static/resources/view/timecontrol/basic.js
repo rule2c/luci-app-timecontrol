@@ -13,29 +13,8 @@
 'require network';
 
 function checkTimeControlProcess() {
-    return fs.exec('/bin/ps', ['w']).then(function(res) {
-        if (res.code !== 0) {
-            return { running: false, pid: null };
-        }
-        
-        var lines = res.stdout.split('\n');
-        var running = false;
-        var pid = null;
-        
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (line.includes('timecontrolctrl')) {
-                running = true;
-                // 提取PID
-                var match = line.match(/^\s*(\d+)/);
-                if (match) {
-                    pid = match[1];
-                }
-                break;
-            }
-        }
-        
-        return { running: running, pid: pid };
+    return fs.exec('/etc/init.d/timecontrol', ['running']).then(function(res) {
+        return { running: res.code === 0, pid: null };
     }).catch(function() {
         return { running: false, pid: null };
     });

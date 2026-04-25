@@ -8,7 +8,8 @@
       },
       "uci": [ "timecontrol" ],
       "file": {
-        "/var/log/timecontrol.log": [ "read" ]
+        "/var/log/timecontrol.log": [ "read" ],
+        "/etc/init.d/timecontrol": [ "exec" ]
       }
     },
     "write": {
@@ -19,7 +20,8 @@
       "uci": [ "timecontrol" ],
       "file": {
         "/var/log/timecontrol.log": [ "write" ],
-        "/usr/libexec/timecontrol-call": [ "exec" ]
+        "/usr/libexec/timecontrol-call": [ "exec" ],
+        "/etc/init.d/timecontrol": [ "exec" ]
       }
     }
   }
