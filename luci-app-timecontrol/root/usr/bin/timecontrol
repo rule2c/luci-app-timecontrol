@@ -535,7 +535,6 @@ case "$crrun" in
         init_firewall
         if [ $? -eq 0 ]; then
             info "时间控制启动成功"
-            show_firewall_status
         else
             info "时间控制启动失败"
         fi
@@ -554,7 +553,6 @@ case "$crrun" in
         }
         info "添加设备控制: ID=$crid"
         add_device "$crid"
-        show_firewall_status
         ;;
         
     "del")
@@ -564,7 +562,6 @@ case "$crrun" in
         }
         info "移除设备控制: ID=$crid"
         del_device "$crid"
-        show_firewall_status
         ;;
         
     "status")
